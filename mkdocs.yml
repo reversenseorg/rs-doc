@@ -1,0 +1,56 @@
+site_name: Reversense Documentation
+site_url: https://docs.reversense.org/
+
+repo_name: reversenseorg/dexcalibur
+repo_url: https://github.com/reversenseorg/dexcalibur
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: fr
+  palette:
+    # Bascule mode clair / sombre
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Passer en mode sombre
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Passer en mode clair
+  features:
+    - navigation.instant      # navigation sans rechargement de page
+    - navigation.tracking     # met à jour l'URL selon la section lue
+    - navigation.top          # bouton "revenir en haut"
+    - search.suggest          # suggestions de recherche
+    - search.highlight        # surligne les termes trouvés
+    - content.code.copy       # bouton "copier" sur les blocs de code
+    - content.action.edit     # bouton "éditer cette page"
+
+# Navigation : l'ordre et les titres des pages du menu
+nav:
+  - Home: index.md
+  - Getting Start: guide.md
+
+# Extensions Markdown utiles (blocs de code, notes, tableaux, etc.)
+markdown_extensions:
+  - admonition                # blocs "note", "warning", "tip"...
+  - pymdownx.details
+  - pymdownx.superfences      # blocs de code imbriqués / diagrammes
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - tables
+  - toc:
+      permalink: true         # ancre cliquable à côté des titres
+
+plugins:
+  - search:
+      lang: fr
