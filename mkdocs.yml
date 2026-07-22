@@ -7,9 +7,11 @@ edit_uri: edit/main/docs/
 
 theme:
   name: material
-  language: fr
+  custom_dir: overrides
+  logo: assets/logo.svg
+  favicon: assets/logo.webp
+  language: en
   palette:
-    # Bascule mode clair / sombre
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: indigo
@@ -18,38 +20,74 @@ theme:
         icon: material/weather-night
         name: Passer en mode sombre
     - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: indigo
-      accent: indigo
+      scheme: reversense
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-sunny
-        name: Passer en mode clair
   features:
-    - navigation.instant      # navigation sans rechargement de page
+    # - navigation.instant      # navigation sans rechargement de page
     - navigation.tracking     # met à jour l'URL selon la section lue
     - navigation.top          # bouton "revenir en haut"
+    - navigation.sections
     - search.suggest          # suggestions de recherche
     - search.highlight        # surligne les termes trouvés
     - content.code.copy       # bouton "copier" sur les blocs de code
     - content.action.edit     # bouton "éditer cette page"
 
-# Navigation : l'ordre et les titres des pages du menu
+extra_css:
+  - stylesheets/reversense.css
 nav:
   - Home: index.md
-  - Getting Start: guide.md
+  - Getting Started:
+      - Overview: getting-started/overview.md
+      - Quickstart: getting-started/quickstart.md
+      - Installation: getting-started/installation.md
+      - Key concepts: getting-started/concept.md
+      - Processus:
+          - Overview: getting-started/processus.md
+          - Discovery: getting-started/workflow/discovery.md
+          - Modeling: getting-started/workflow/modeling.md
+          - Instrumentation: getting-started/workflow/instrumentation.md
+          - Execution: getting-started/workflow/execution.md
+  - Guides:
+      - Configuration: guides/configuration.md
+      - Best practices: guides/best-practices.md
+  - Tutorials:
+      - tutorials/index.md
+  - Reference:
+      - API: reference/api.md
+      - Configuration: reference/configuration.md
+      - Glossary: reference/glossary.md
+  - Integrations:
+      - AI interops: integrations/ai.md
+      - Radare2: integrations/radare2.md
+      - MCP: integrations/mcp.md
+      - OpenAPI: integrations/openapi.md
+  - Resources:
+      - FAQ: resources/faq.md
+      - Troubleshooting: resources/troubleshooting.md
+      - Changelog: resources/changelog.md
+      - Contributing: resources/contributing.md
 
-# Extensions Markdown utiles (blocs de code, notes, tableaux, etc.)
 markdown_extensions:
-  - admonition                # blocs "note", "warning", "tip"...
+  - admonition
+  - attr_list
+  - md_in_html
   - pymdownx.details
-  - pymdownx.superfences      # blocs de code imbriqués / diagrammes
+  - pymdownx.superfences
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - tables
   - toc:
-      permalink: true         # ancre cliquable à côté des titres
+      permalink: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 plugins:
   - search:

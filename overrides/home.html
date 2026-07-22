@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reversense — Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;450;500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --navy:#172234;
+            --navy-2:#1E2C42;
+            --navy-3:#26374F;
+            --line:#33445E;
+            --line-2:#3E5170;
+            --orange:#F5820A;
+            --orange-2:#FF9A2E;
+            --teal:#33D9B2;
+            --text:#E9EEF5;
+            --text-dim:#93A0B4;
+            --display:"Poppins",sans-serif;
+            --body:"Inter",sans-serif;
+            --mono:"JetBrains Mono",monospace;
+        }
+        *{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth}
+        body{background:var(--navy);color:var(--text);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+        a{color:inherit;text-decoration:none}
+        .wrap{max-width:1400px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
+
+        /* ---------- brand logo (reversed "Rever") ---------- */
+        .logo{font-family:var(--mono);font-weight:600;letter-spacing:-.01em;display:inline-flex;align-items:center;white-space:nowrap}
+        .logo .br{color:var(--orange)}
+        .logo .rev{display:inline-block;transform:scaleX(-1)}
+        .logo .sense{color:var(--text)}
+
+        /* ---------- nav ---------- */
+        nav{position:sticky;top:0;z-index:60;background:rgba(23,34,52,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+        .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+        .nav-in .logo{font-size:17px}
+        .nav-links{display:flex;align-items:center;gap:30px;font-size:14px;font-family:var(--body)}
+        .nav-links a{color:var(--text-dim);transition:color .15s}
+        .nav-links a:hover{color:var(--text)}
+        .nav-cta{color:var(--navy)!important;background:var(--orange);padding:8px 16px;border-radius:7px;font-weight:600;transition:transform .12s,box-shadow .15s}
+        .nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 22px -8px var(--orange)}
+        .menu-btn{display:none;font-family:var(--mono);color:var(--text-dim);background:none;border:1px solid var(--line);border-radius:6px;padding:6px 11px;font-size:16px;cursor:pointer}
+
+        /* ---------- signature swoosh ---------- */
+        .swoosh{position:absolute;top:-1px;right:0;width:66%;max-width:760px;height:200px;z-index:1;pointer-events:none}
+        .hero-hairline{position:absolute;top:0;right:0;width:66%;max-width:760px;height:200px;z-index:1;pointer-events:none}
+
+        /* ---------- hero ---------- */
+        .hero{position:relative;padding:70px 0 40px}
+        .hero-grid{display:grid;grid-template-columns:1fr 1.04fr;gap:54px;align-items:center}
+        .eyebrow{font-family:var(--mono);font-size:12px;color:var(--orange);letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;margin-bottom:24px}
+        .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange)}
+        h1{font-family:var(--display);font-weight:600;font-size:58px;line-height:1.03;letter-spacing:-.025em;margin-bottom:22px}
+        h1 .sense{color:var(--teal)}
+        .lead{font-size:18px;color:var(--text-dim);max-width:40ch;margin-bottom:32px}
+        .lead b{color:var(--text);font-weight:500}
+        .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+        .btn{font-family:var(--display);font-size:14px;font-weight:600;padding:13px 22px;border-radius:9px;transition:transform .12s,box-shadow .15s,border-color .15s,color .15s;display:inline-flex;align-items:center;gap:9px}
+        .btn-primary{background:var(--orange);color:var(--navy)}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px -10px var(--orange)}
+        .btn-ghost{border:1px solid var(--line-2);color:var(--text)}
+        .btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
+        .btn .arr{transition:transform .15s}
+        .btn:hover .arr{transform:translateX(3px)}
+
+        /* ---------- resolve panel ---------- */
+        .pane{background:var(--navy-2);border:1px solid var(--line);border-radius:13px;overflow:hidden;box-shadow:0 44px 90px -44px #000}
+        .pane-bar{display:flex;align-items:center;gap:8px;padding:12px 15px;border-bottom:1px solid var(--line);background:var(--navy-3)}
+        .dot{width:10px;height:10px;border-radius:50%;background:var(--line-2)}
+        .pane-title{font-family:var(--mono);font-size:12px;color:var(--text-dim);margin-left:6px}
+        .pane-title .badge{color:var(--orange)}
+        .pane-body{display:grid;grid-template-columns:1fr 1fr}
+        .col-head{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;padding:11px 16px;color:var(--text-dim);border-bottom:1px solid var(--line)}
+        .col.raw{border-right:1px solid var(--line);background:linear-gradient(180deg,rgba(245,130,10,.09),transparent 62%)}
+        .col.raw .col-head{color:var(--orange);border-right:1px solid var(--line)}
+        .col.out{background:linear-gradient(180deg,rgba(51,217,178,.09),transparent 62%)}
+        .col.out .col-head{color:var(--teal)}
+        .code{font-family:var(--mono);font-size:12.5px;line-height:1.85;padding:14px 16px 18px}
+        .code .row{display:flex;gap:12px;white-space:nowrap}
+        .addr{color:#5D6A82}
+        .hex{color:var(--orange);opacity:.9}
+        .asm{color:var(--text)}
+        .asm .op{color:var(--text-dim)}
+        .kw{color:#C79BF2}.fn{color:var(--teal)}.ty{color:#7FB4FF}.num{color:var(--orange)}.cm{color:var(--text-dim);opacity:.7}
+        .out .code .line{opacity:0;transform:translateY(4px)}
+        .out .code .line.in{opacity:1;transform:none;transition:opacity .4s ease,transform .4s ease}
+        .cursor{display:inline-block;width:7px;height:15px;background:var(--teal);vertical-align:-2px;margin-left:2px;animation:blink 1.05s step-end infinite}
+        @keyframes blink{50%{opacity:0}}
+
+        /* ---------- sections ---------- */
+        .block{padding:70px 0;border-top:1px solid var(--line);position:relative}
+        .sec-eyebrow{font-family:var(--mono);font-size:12px;color:var(--teal);letter-spacing:.09em;margin-bottom:14px}
+        .sec-title{font-family:var(--display);font-weight:600;font-size:34px;letter-spacing:-.02em;margin-bottom:12px}
+        .sec-sub{color:var(--text-dim);max-width:56ch;margin-bottom:44px}
+        .sec-sub b{color:var(--text);font-weight:500}
+
+        /* ---------- methodology pipeline (signature) ---------- */
+        .phases{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative}
+        .phase{background:var(--navy-2);border:1px solid var(--line);border-radius:12px;padding:22px 20px 24px;position:relative;transition:transform .18s,border-color .18s}
+        .phase:hover{transform:translateY(-4px)}
+        .phase .num{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.05em}
+        .phase h3{font-family:var(--display);font-weight:600;font-size:17px;margin:12px 0 8px}
+        .phase p{font-size:13.5px;color:var(--text-dim)}
+        .phase.o{border-top:2px solid var(--orange)}.phase.o .num{color:var(--orange)}.phase.o:hover{border-color:var(--orange)}
+        .phase.t{border-top:2px solid var(--teal)}.phase.t .num{color:var(--teal)}.phase.t:hover{border-color:var(--teal)}
+        .phase .link{position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--line-2);z-index:3;font-size:15px}
+        .phase:last-child .link{display:none}
+        .ur{margin-top:16px;background:linear-gradient(90deg,rgba(245,130,10,.12),rgba(51,217,178,.12));border:1px solid var(--line-2);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+        .ur .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);border:1px solid var(--teal);border-radius:20px;padding:4px 12px;white-space:nowrap}
+        .ur p{font-size:14.5px;color:var(--text);flex:1;min-width:240px}
+        .ur p b{font-family:var(--display);font-weight:600}
+
+        /* ---------- capability grid ---------- */
+        .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+        .card{background:var(--navy-2);border:1px solid var(--line);border-radius:12px;padding:26px 24px 28px;transition:border-color .18s,transform .18s;position:relative;overflow:hidden}
+        .card:hover{border-color:var(--line-2);transform:translateY(-3px)}
+        .card::after{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:var(--orange);transition:width .3s}
+        .card:hover::after{width:100%}
+        .card .k{font-family:var(--mono);font-size:12px;color:var(--text-dim)}
+        .card h3{font-family:var(--display);font-weight:600;font-size:19px;margin:14px 0 9px;letter-spacing:-.01em}
+        .card p{font-size:14.5px;color:var(--text-dim)}
+        .card code{font-family:var(--mono);font-size:.86em;color:var(--teal);background:rgba(51,217,178,.1);padding:1px 6px;border-radius:4px}
+
+        /* ---------- interop band ---------- */
+        .interop{background:var(--navy-2);border:1px solid var(--line);border-radius:16px;padding:44px;display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:center}
+        .interop .sec-title{font-size:28px}
+        .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+        .chip{font-family:var(--mono);font-size:12.5px;color:var(--text);border:1px solid var(--line-2);border-radius:8px;padding:8px 13px}
+        .chip b{color:var(--orange)}
+        .mcp{background:var(--navy);border:1px solid var(--line);border-radius:12px;padding:22px;font-family:var(--mono);font-size:12.5px;line-height:1.9}
+        .mcp .h{color:var(--text-dim);margin-bottom:8px}
+        .mcp .l{color:var(--text)}
+        .mcp .kk{color:var(--orange)}.mcp .vv{color:var(--teal)}
+
+        /* ---------- quickstart ---------- */
+        .qs{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:center}
+        .term{background:#101827;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-family:var(--mono);box-shadow:0 30px 60px -36px #000}
+        .term-bar{padding:11px 15px;border-bottom:1px solid var(--line);color:var(--text-dim);font-size:11.5px;display:flex;gap:8px;align-items:center}
+        .term-body{padding:19px;font-size:13px;line-height:2}
+        .term-body .p{color:var(--orange)}.term-body .c{color:var(--text)}.term-body .o{color:var(--text-dim)}.term-body .ok{color:var(--teal)}
+        .qs-list{list-style:none;display:flex;flex-direction:column;gap:20px}
+        .qs-list li{display:flex;gap:16px}
+        .qs-list .n{font-family:var(--mono);color:var(--orange);font-size:13px;padding-top:2px;min-width:26px}
+        .qs-list h4{font-family:var(--display);font-weight:600;font-size:16px;margin-bottom:3px}
+        .qs-list p{font-size:14px;color:var(--text-dim)}
+        .qs-list a{color:var(--teal);border-bottom:1px solid transparent;transition:border-color .15s}
+        .qs-list a:hover{border-color:var(--teal)}
+
+        /* ---------- footer ---------- */
+        footer{border-top:1px solid var(--line);padding:44px 0 40px;position:relative;overflow:hidden}
+        .foot-swoosh{position:absolute;left:0;bottom:0;width:280px;height:80px;z-index:1}
+        .foot-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px;margin-bottom:30px}
+        .foot-top .logo{font-size:16px;margin-bottom:12px}
+        .foot-desc{color:var(--text-dim);font-size:13.5px;max-width:34ch}
+        .foot-links{display:flex;gap:56px;flex-wrap:wrap}
+        .foot-col h5{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:12px}
+        .foot-col a{display:block;font-size:14px;color:var(--text);margin-bottom:9px;transition:color .15s}
+        .foot-col a:hover{color:var(--orange)}
+        .foot-bottom{border-top:1px solid var(--line);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--text-dim);font-family:var(--mono)}
+
+        /* ---------- responsive ---------- */
+        @media(max-width:920px){
+            .hero-grid{grid-template-columns:1fr;gap:40px;padding-top:10px}
+            h1{font-size:46px}
+            .phases{grid-template-columns:1fr 1fr}
+            .phase .link{display:none}
+            .grid3{grid-template-columns:1fr}
+            .interop,.qs{grid-template-columns:1fr;gap:30px}
+            .nav-links{display:none}
+            .menu-btn{display:block}
+            .swoosh,.hero-hairline{width:100%;opacity:.55}
+        }
+        @media(max-width:520px){
+            .wrap{padding:0 20px}
+            h1{font-size:37px}
+            .phases{grid-template-columns:1fr}
+            .pane-body{grid-template-columns:1fr}
+            .col.raw{border-right:none;border-bottom:1px solid var(--line)}
+            .interop{padding:30px}
+        }
+        @media(prefers-reduced-motion:reduce){
+            .out .code .line{opacity:1!important;transform:none!important;transition:none!important}
+            .cursor{animation:none}
+            *{scroll-behavior:auto!important}
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="wrap nav-in">
+        <a class="logo" href="#"><span class="br">&lt;/</span><span class="rev">Rever</span><span class="sense">Sense</span><span class="br">&gt;</span></a>
+        <div class="nav-links">
+            <a href="/features/overview/">Platform</a>
+            <a href="https://www.reversense.com/">Services</a>
+            <a href="/getting-started/process/">Methodology</a>
+            <a href="/integration/ai/">API &amp; MCP</a>
+            <a href="/getting-started/quickstart/">Quickstart</a>
+            <a class="nav-cta" href="/getting-started/install/">Install</a>
+        </div>
+        <button class="menu-btn" aria-label="Menu">≡</button>
+    </div>
+</nav>
+
+<header class="hero">
+    <svg class="swoosh" viewBox="0 0 760 200" preserveAspectRatio="none" aria-hidden="true">
+        <path fill="var(--orange)" d="M760,0 V78 C560,78 512,120 372,120 C244,120 208,70 0,80 L0,0 Z"/>
+    </svg>
+    <svg class="hero-hairline" viewBox="0 0 760 200" preserveAspectRatio="none" aria-hidden="true">
+        <path fill="none" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="2" d="M760,96 C560,96 512,138 372,138 C244,138 208,88 0,98"/>
+    </svg>
+
+    <div class="wrap hero-grid">
+        <div>
+            <span class="eyebrow">Collaborative reverse-engineering</span>
+            <h1>Make <span class="sense">sense</span> of any binary.</h1>
+            <p class="lead">Reversense automates the reverse-engineering of mobile and embedded apps — modeling the whole application, its system dependencies, UI and files into one <b>universal representation</b> you can explore, instrument, and test.</p>
+            <div class="cta-row">
+                <a class="btn btn-primary" href="#quickstart">Get started <span class="arr">→</span></a>
+                <a class="btn btn-ghost" href="#methodology">How it works</a>
+            </div>
+        </div>
+
+        <div class="pane" aria-hidden="true">
+            <div class="pane-bar">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="pane-title">Reversense &nbsp;·&nbsp; <span class="badge">Component analyzer: relationships</span></span>
+            </div>
+            <img src="/assets/images/screenshots/WEBP/dxc_graph_meth_massive.webp" width="800px" alt="Reversense screenshot">
+            <!--<div class="pane-body">
+                <div class="col raw">
+                    <div class="col-head">disassembly</div>
+                    <div class="code">
+                        <div class="row"><span class="addr">0x401000</span><span class="hex">55</span><span class="asm">push <span class="op">rbp</span></span></div>
+                        <div class="row"><span class="addr">0x401001</span><span class="hex">4889e5</span><span class="asm">mov <span class="op">rbp,rsp</span></span></div>
+                        <div class="row"><span class="addr">0x401004</span><span class="hex">8a07</span><span class="asm">mov <span class="op">al,[rdi]</span></span></div>
+                        <div class="row"><span class="addr">0x401006</span><span class="hex">3c7f</span><span class="asm">cmp <span class="op">al,0x7f</span></span></div>
+                        <div class="row"><span class="addr">0x401008</span><span class="hex">7508</span><span class="asm">jne <span class="op">0x401012</span></span></div>
+                        <div class="row"><span class="addr">0x40100a</span><span class="hex">e8..</span><span class="asm">call <span class="op">read_be32</span></span></div>
+                        <div class="row"><span class="addr">0x40100f</span><span class="hex">c3</span><span class="asm">ret</span></div>
+                    </div>
+                </div>
+                <div class="col out">
+                    <div class="col-head">decompiled</div>
+                    <div class="code" id="decomp">
+                        <div class="line"><span class="ty">int32_t</span> <span class="fn">parse_header</span>(<span class="ty">uint8_t</span> *buf) {</div>
+                        <div class="line">&nbsp;&nbsp;<span class="kw">if</span> (buf[<span class="num">0</span>] != <span class="num">0x7f</span>)</div>
+                        <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="num">-1</span>;&nbsp;<span class="cm">// bad magic</span></div>
+                        <div class="line">&nbsp;&nbsp;<span class="kw">return</span> <span class="fn">read_be32</span>(buf + <span class="num">1</span>);</div>
+                        <div class="line">}<span class="cursor" id="cur"></span></div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</header>
+
+<section class="block" id="methodology">
+    <div class="wrap">
+        <div class="sec-eyebrow">// how reversense works</div>
+        <h2 class="sec-title">Four phases into one representation.</h2>
+        <p class="sec-sub">Reversense runs as a virtual test bench. Each phase feeds a single <b>universal representation</b> — the model every tool on the platform reads from and writes to.</p>
+        <div class="phases">
+            <div class="phase o" onclick="window.location.href='/getting-started/discovery/';">
+                <div class="num">PHASE 01</div><h3>Discovery</h3>
+                <p><a href="/getting-started/discovery/ " style="color: inherit; text-decoration: none;">Profiles the execution environment — permissions, CPU, TEE — provisions the test bench and retrieves the target.</a></p>
+                <span class="link">→</span>
+            </div>
+            <div class="phase t" onclick="window.location.href='/getting-started/modeling/';">
+                <div class="num">PHASE 02</div><h3>Modeling</h3>
+                <p><a href="/getting-started/modeling/" style="color: inherit; text-decoration: none;">Builds the universal representation: code, data, libraries, syscalls, UI, traces — all in one place.</a></p>
+                <span class="link">→</span>
+            </div>
+            <div class="phase o" onclick="window.location.href='/getting-started/instrumentation/';">
+                <div class="num">PHASE 03</div><h3>Instrumentation</h3>
+                <p><a href="/getting-started/instrumentation/" style="color: inherit; text-decoration: none;">Auto-generates hooks and probes for every point of interest, then collects and tags execution traces.</a></p>
+                <span class="link">→</span>
+            </div>
+            <div class="phase t" onclick="window.location.href='/getting-started/execution/';">
+                <div class="num">PHASE 04</div><h3>Execution &amp; test</h3>
+                <p><a href="/getting-started/execution/" style="color: inherit; text-decoration: none;">Runs the app, enriches the model, then scans with SAST / DAST / IAST or lets you explore by hand.</a></p>
+            </div>
+        </div>
+        <div class="ur">
+            <span class="tag">Universal representation</span>
+            <p><a href="/getting-started/elixir/" style="color: inherit; text-decoration: none;">Continuously enriched <b>automatically</b> as tools and robots discover new data — so nothing you learn at runtime is ever lost.</a></p>
+        </div>
+    </div>
+</section>
+
+<section class="block" id="platform">
+    <div class="wrap">
+        <div class="sec-eyebrow">// the platform</div>
+        <h2 class="sec-title">Static and dynamic, in one model.</h2>
+        <p class="sec-sub">Reversense pairs static analysis with dynamic instrumentation — what it calls <b>stereoscopic analysis</b> — and keeps every result explorable side by side.</p>
+        <div class="grid3">
+            <div class="card" onclick="window.location.href='/features/modeling/';"><div class="k">representation</div><h3>Universal model</h3><p><a href="/features/modeling/" style="color: inherit; text-decoration: none;">Machine code, binaries, scripts, dumps, network traces and syscalls — find everything in one place, kept in sync.</a></p></div>
+            <div class="card" onclick="window.location.href='/features/merlin-search/';"><div class="k">search</div><h3>Merlin engine</h3><p><a  href="/features/merlin-search/" style="color: inherit; text-decoration: none;">Traverse traces and ASTs across 100+ node types, filter with 400+ built-in tags, and search by adjacency or taint.</a></p></div>
+            <div class="card" onclick="window.location.href='/features/decompiler/';"><div class="k">decompiler</div><h3>Radare2, built in</h3><p><a  href="/features/decompiler/" style="color: inherit; text-decoration: none;">Radare2 ships as the default <code>NativeAnalyzer</code>. Swap in another engine through an adapter whenever you need to.</a></p></div>
+            <div class="card" onclick="window.location.href='/features/hooking/';"><div class="k">dynamic</div><h3>Instrumentation</h3><p><a  href="/features/hooking/" style="color: inherit; text-decoration: none;">Theme hooks for Java, Objective-C and native code in a few clicks. KeyPoints load, unload and trigger actions on demand.</a></p></div>
+            <div class="card" onclick="window.location.href='/features/security/';"><div class="k">deobfuscation</div><h3>Countermeasure assessment</h3><p><a  href="/features/security/" style="color: inherit; text-decoration: none;">Automated countermeasure assessment covering anti-hook, anti-root and anti-emulator tactics, plus on-the-fly decompilation of dynamically loaded code.</a></p></div>
+            <div class="card" onclick="window.location.href='/features/teamwork/';"><div class="k">teamwork</div><h3>Built to collaborate</h3><p><a  href="/features/teamwork/" style="color: inherit; text-decoration: none;">One project, X devices, Y analysts — work the same binary at once on separate terminals, no conflicts.</a></p></div>
+        </div>
+    </div>
+</section>
+
+<section class="block" id="interop">
+    <div class="wrap">
+        <div class="interop">
+            <div>
+                <div class="sec-eyebrow">// interoperability</div>
+                <h2 class="sec-title">Built for automation and AI.</h2>
+                <p class="sec-sub" style="margin-bottom:0">Every capability shown above is callable over a standardized, OpenAPI-documented interface — and over our MCP server, so an LLM can drive the platform with the same access control as the API.</p>
+                <div class="chips">
+                    <a class="chip" href="/integrations/openapi/"><b>OpenAPI</b> web services</a>
+                    <a class="chip" href="/integrations/mcp/"><b>MCP</b> server for LLMs</a>
+                    <a class="chip" href="/integrations/sso/"><b>SSO</b> + API keys</a>
+                </div>
+            </div>
+            <div class="mcp">
+                <div class="h"># reversense.mcp — tool call</div>
+                <div class="l"><span class="kk">tool</span>: <span class="vv">"search_representation"</span></div>
+                <div class="l"><span class="kk">query</span>: <span class="vv">"crypto init on startup"</span></div>
+                <div class="l"><span class="kk">scope</span>: <span class="vv">["traces","libraries"]</span></div>
+                <div class="l" style="margin-top:8px;color:var(--text-dim)"># → 12 nodes, 3 hooks generated</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block" id="quickstart">
+    <div class="wrap qs">
+        <div class="term">
+            <div class="term-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> &nbsp;bash — install a plugin</div>
+            <div class="term-body">
+                <div><span class="p">$</span> <span class="c">node ./dist/dexcalibur.js --gui=home,pro --master-node --self-registration</span></div>
+                <!--<div><span class="o"># resolving deps…</span></div>
+                <div><span class="ok">✓ ready.</span> <span class="o">Visit https://127.0.0.1:8080/.</span></div>
+                <div style="margin-top:10px"><span class="p">$</span> <span class="c">reversense open ./sample.apk</span></div>-->
+            </div>
+        </div>
+        <div>
+            <div class="sec-eyebrow">// quickstart</div>
+            <h2 class="sec-title" style="font-size:28px">Three steps to first analysis</h2>
+            <ol class="qs-list">
+                <li><span class="n">01</span><div><h4>Open a target</h4><p>Drop a package and lets Reversense build the model.</p></div></li>
+                <li><span class="n">02</span><div><h4>Launch a first run</h4><p>Select your favorite device and run.</p></div></li>
+                <li><span class="n">03</span><div><h4>Explore models</h4><p>Reversense improves the model at runtime. Play with inspectors and options to explore components.</p></div></li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <svg class="foot-swoosh" viewBox="0 0 280 80" preserveAspectRatio="none" aria-hidden="true">
+        <path fill="var(--orange)" d="M0,80 L0,30 C120,30 150,0 280,0 L280,80 Z" opacity="0.9"/>
+    </svg>
+    <div class="wrap">
+        <div class="foot-top">
+            <div>
+                <a class="logo" href="#"><span class="br">&lt;/</span><span class="rev">Rever</span><span class="sense">Sense</span><span class="br">&gt;</span></a>
+                <p class="foot-desc">Offensive-security platform for the reverse-engineering of mobile and embedded applications.</p>
+            </div>
+            <div class="foot-links">
+                <div class="foot-col">
+                    <h5>Professional services</h5>
+                    <a href="https://www.reversense.com/security-training">Training</a>
+                    <a href="https://www.reversense.com/">Support</a>
+                    <a href="https://www.reversense.com/">Pro plugins</a>
+                    <a href="https://www.reversense.com/">Managed Services</a>
+                </div>
+                <div class="foot-col">
+                    <h5>Concepts</h5>
+                    <a href="/getting-started/process/">Methodology</a>
+                    <a href="/features/platform/">Platform</a>
+                    <a href="/integrations/mcp/">API &amp; MCP</a>
+                </div>
+                <div class="foot-col">
+                    <h5>Docs</h5>
+                    <a href="/getting-started/quickstart/">Quickstart</a>
+                    <a href="/reference/api/">Reference API</a>
+                    <a href="/reference/inspectors/">Plugins</a>
+                </div>
+                <div class="foot-col">
+                    <h5>Company</h5>
+                    <a href="mailto:contact@reversense.com">contact@reversense.com</a>
+                    <a href="#">Toulouse, France</a>
+                </div>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <span>2020–2026 Reversense — GNU Affero General Public License v3</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var lines = document.querySelectorAll('#decomp .line');
+    var cur = document.getElementById('cur');
+    if(!reduce){
+        if(cur) cur.style.opacity = 0;
+        lines.forEach(function(l,i){
+            setTimeout(function(){
+                l.classList.add('in');
+                if(i===lines.length-1 && cur) cur.style.opacity = 1;
+            }, 420 + i*260);
+        });
+    }
+</script>
+</body>
+</html>

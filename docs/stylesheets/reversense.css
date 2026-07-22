@@ -1,0 +1,263 @@
+/* ============================================================
+   ReverSense — brand theme for Material for MkDocs
+   Applied to every documentation page via extra_css.
+   Scope: retheme Material's own tokens; do NOT reset globals.
+   ============================================================ */
+
+:root {
+    /* Brand palette */
+    --rv-navy-900: #0B1526;   /* deepest — hero / sidebars on dark */
+    --rv-navy-800: #0E1A2E;
+    --rv-navy-700: #14233C;
+    --rv-orange:   #F5820A;   /* primary accent */
+    --rv-orange-600: #D96F00;
+    --rv-teal:     #33D9B2;   /* secondary accent (Date/Version labels) */
+    --rv-teal-600: #17B394;
+    --rv-muted:    #5D6A82;   /* addresses, captions */
+    --rv-ink:      #1C2740;   /* body text on light */
+    --rv-paper:    #FBFCFE;   /* page background (light) */
+    --rv-line:     #E4E9F2;
+
+    /* imported from homepage */
+    --navy:#172234;
+    --navy-2:#1E2C42;
+    --navy-3:#26374F;
+    --line:#33445E;
+    --line-2:#3E5170;
+    --orange:#F5820A;
+    --orange-2:#FF9A2E;
+    --teal:#33D9B2;
+    --text:#E9EEF5;
+    --text-dim:#93A0B4;
+    --display:"Poppins",sans-serif;
+    --body:"Inter",sans-serif;
+    --mono:"JetBrains Mono",monospace;
+    --md-code-hl-punctuation-color: #33D9B2;
+    --md-code-hl-operator-color: #FF9A2E;
+    --md-default-fg-color--lightest: #ffffff60;
+}
+
+
+/* ---- Fonts ------------------------------------------------ */
+:root {
+    --md-text-font: "Inter";
+    --md-code-font: "JetBrains Mono";
+}
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-header__topic .md-ellipsis,
+.md-nav__title {
+    font-family: "Poppins", var(--md-text-font), sans-serif;
+    letter-spacing: -0.01em;
+}
+
+/* ---- Map Material's accent onto the brand ----------------- */
+[data-md-color-scheme="reversense"] {
+    --md-primary-fg-color:        var(--text);
+    --md-primary-fg-color--light: var(--rv-navy-700);
+    --md-primary-fg-color--dark:  var(--text);
+    --md-primary-bg-color:        var(--navy);
+    --md-primary-bg-color--light: #D8E0EE;
+
+    --md-accent-fg-color:         var(--rv-orange);
+    --md-accent-fg-color--transparent: rgba(245,130,10,.10);
+
+    --md-default-bg-color:        var(--navy);
+    --md-default-fg-color--light:        var(--text);
+    --md-typeset-a-color:         var(--rv-orange-600);
+    --md-typeset-color:         var(--text);
+    --md-footer-bg-color:         var(--rv-navy-900);
+    --md-footer-bg-color--dark:   var(--rv-navy-800);
+}
+
+/* ---- Header: the orange signature under the bar ----------- */
+.md-header {
+    background: var(--rv-navy-900);
+    box-shadow: 0 2px 0 0 var(--rv-orange), 0 3px 0 0 rgba(51,217,178,.55);
+    color: var(--text);
+}
+.md-tabs {
+    background: var(--rv-navy-800);
+}
+.md-search__form {
+    background: rgba(255,255,255,.08);
+    border-radius: 6px;
+}
+.md-search__form:hover { background: rgba(255,255,255,.14); }
+
+/* ---- Brand logo lockup in the header ---------------------- */
+.rv-logo {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: .95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    white-space: nowrap;
+}
+.rv-logo .br { color: var(--rv-orange); }
+.rv-logo .rev {
+    display: inline-block;
+    transform: scaleX(-1);   /* the mirrored "Rever" from the brochure */
+    color: #FFFFFF;
+}
+.rv-logo .sense { color: #FFFFFF; }
+
+/* The mono lockup carries the brand; hide the redundant text title.
+   The page-title topic (shown on scroll) stays visible. */
+.md-header__title .md-header__topic:first-child { display: none; }
+.md-logo { display: inline-flex; align-items: center; }
+
+/* ---- Links & inline accents ------------------------------- */
+.md-typeset a { text-decoration-color: rgba(245,130,10,.35); }
+.md-typeset a:hover { color: var(--rv-orange); }
+
+/* ---- Headings: teal eyebrow rule -------------------------- */
+.md-typeset h2 {
+    padding-top: .3rem;
+    border-top: 1px solid var(--rv-line);
+    margin-top: 2.2em;
+}
+.md-typeset h2::before {
+    content: "";
+    display: block;
+    width: 34px; height: 3px;
+    background: var(--rv-orange);
+    border-radius: 2px;
+    margin-bottom: .55rem;
+    transform: translateY(-1px);
+}
+.md-typeset h3 { color: var(--text); }
+
+/* ---- Code blocks ------------------------------------------ */
+.md-typeset code {
+    background: rgba(51,217,178,.12);
+    color: var(--rv-teal-600);
+    border-radius: 4px;
+}
+.md-typeset pre > code {
+    background: var(--rv-navy-900);
+    color: #E7EDF7;
+}
+.md-typeset .highlight { border-radius: 10px; overflow: hidden; }
+.md-typeset .highlight span.filename {
+    background: var(--rv-navy-700);
+    color: #AEB9CE;
+    font-family: "JetBrains Mono", monospace;
+    font-size: .72rem;
+    letter-spacing: .04em;
+}
+
+/* ---- Admonitions in brand colors -------------------------- */
+.md-typeset .admonition,
+.md-typeset details {
+    border-radius: 10px;
+    border-left-width: 3px;
+}
+.md-typeset .admonition.note,
+.md-typeset .admonition.info {
+    border-color: var(--rv-teal);
+}
+.md-typeset .note > .admonition-title,
+.md-typeset .info > .admonition-title {
+    background: rgba(51,217,178,.12);
+}
+.md-typeset .note > .admonition-title::before,
+.md-typeset .info > .admonition-title::before { background: var(--rv-teal-600); }
+
+.md-typeset .admonition.tip,
+.md-typeset .admonition.warning {
+    border-color: var(--rv-orange);
+}
+.md-typeset .tip > .admonition-title,
+.md-typeset .warning > .admonition-title {
+    background: rgba(245,130,10,.12);
+}
+
+/* ---- Tables ----------------------------------------------- */
+.md-typeset table:not([class]) {
+    border: 1px solid var(--rv-line);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.md-typeset table:not([class]) th {
+    background: var(--rv-navy-900);
+    color: #FFFFFF;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+.md-typeset table:not([class]) tr:hover { background: rgba(245,130,10,.04); }
+
+/* ---- Navigation (left) ------------------------------------ */
+.md-nav__link--active,
+.md-nav__item .md-nav__link--active {
+    color: var(--rv-orange-600);
+    font-weight: 600;
+}
+.md-nav__link:hover { color: var(--rv-orange); }
+
+/* Section labels in the sidebar get the mono/teal treatment */
+.md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link {
+    font-family: "Poppins", sans-serif;
+}
+
+/* ---- Table of contents (right) — teal active marker ------- */
+.md-nav--secondary .md-nav__link--active { color: var(--rv-teal-600); }
+[dir=ltr] .md-nav--secondary .md-nav__list { border-left: 1px solid var(--rv-line); }
+
+/* ---- Content buttons (.md-button) ------------------------- */
+.md-typeset .md-button {
+    border-radius: 8px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    border-width: 1px;
+}
+.md-typeset .md-button--primary {
+    background: var(--rv-orange);
+    border-color: var(--rv-orange);
+    color: #14100A;
+}
+.md-typeset .md-button--primary:hover {
+    background: var(--rv-orange-600);
+    border-color: var(--rv-orange-600);
+    color: #FFFFFF;
+}
+
+/* ---- Footer: navy with the little orange tab -------------- */
+.md-footer-meta { background: var(--rv-navy-800); }
+.md-footer { position: relative; }
+.md-footer::before {
+    content: "";
+    position: absolute;
+    top: 0; right: 8%;
+    width: 56px; height: 5px;
+    background: var(--rv-orange);
+    border-radius: 0 0 4px 4px;
+}
+
+/* ---- Phase pills reusable inside markdown ----------------- */
+.rv-phases {
+    display: flex; flex-wrap: wrap; gap: .5rem;
+    margin: 1.2rem 0;
+}
+.rv-phase {
+    font-family: "JetBrains Mono", monospace;
+    font-size: .78rem;
+    padding: .35rem .7rem;
+    border-radius: 999px;
+    border: 1px solid var(--rv-line);
+    color: var(--rv-navy-700);
+    background: #fff;
+}
+.rv-phase b { color: var(--rv-orange-600); font-weight: 700; margin-right: .35rem; }
+
+.md-icon svg {
+    color: var(--teal);
+}
+
+
+/* ---- Reduced motion --------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
