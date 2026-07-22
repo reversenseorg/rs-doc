@@ -1,5 +1,10 @@
 site_name: Reversense Documentation
 site_url: https://docs.reversense.org/
+copyright: "2020–2026 Reversense — GNU Affero General Public License v3"
+
+not_in_nav: |
+  mentions-legales.md
+  confidentialite.md
 
 repo_name: reversenseorg/dexcalibur
 repo_url: https://github.com/reversenseorg/dexcalibur
@@ -61,6 +66,7 @@ nav:
           - Teamwork: guides/features/teamwork.md
       - Configuration: guides/configuration.md
       - Best practices: guides/best-practices.md
+      - Agent: guides/agent.md
   - Tutorials:
       - tutorials/index.md
   - Reference:

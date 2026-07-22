@@ -35,6 +35,8 @@
     --md-code-hl-punctuation-color: #33D9B2;
     --md-code-hl-operator-color: #FF9A2E;
     --md-default-fg-color--lightest: #ffffff60;
+    --md-admonition-bg-color: #26374F;
+    --md-admonition-fg-color: #ffffff;
 }
 
 
