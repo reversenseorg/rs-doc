@@ -51,6 +51,14 @@ nav:
           - Instrumentation: getting-started/workflow/instrumentation.md
           - Execution: getting-started/workflow/execution.md
   - Guides:
+      - Features:
+          - Overview: guides/features/overview.md
+          - Modeling: guides/features/modeling.md
+          - Decompiler: guides/features/decompiler.md
+          - Hooking: guides/features/hooking.md
+          - Merlin Search: guides/features/merlin-search.md
+          - Security assessment: guides/features/security.md
+          - Teamwork: guides/features/teamwork.md
       - Configuration: guides/configuration.md
       - Best practices: guides/best-practices.md
   - Tutorials:
